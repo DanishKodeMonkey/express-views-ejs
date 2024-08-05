@@ -14,7 +14,7 @@ const links = [
         text: 'Home',
     },
     {
-        href: 'about',
+        href: '/about',
         text: 'About',
     },
 ];
@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/about', (req, res) => {
-    res.render('about', { about: about });
+    res.render('about', { links: links });
 });
 
 const PORT = 3000;
