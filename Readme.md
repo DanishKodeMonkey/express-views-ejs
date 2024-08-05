@@ -194,3 +194,43 @@ Meanwhile, one instance of user.ejs will be used for each element of the users a
 Now, when we enter the index view of our application:
 
 ![index view with navbar and users list](./public/Screenshot_20240805_143104.png)
+
+## Static assets
+
+Using static assets, like pictures, icons, etc. is relatively straight forward.
+
+To do this, we will first have define a path in our directory where we will store our assets
+
+To do this, lets find a place to store our css style sheet:
+Create a folder called `public/` in our root directory
+Inside the folder, create our style sheet `public/styles.css`
+
+Now, in our app.js file, define the path as a constant variable `assetPath`
+
+```javascript
+const assetPath = path.join(__dirname, 'public');
+```
+
+`__dirname` refers to the root directory of our project, and public, the direct child folder we want to access, using path.join we are able to create a dynamic file path to the public directory.
+
+For express to `use` the static assets, we will use the express method `static` to declare a path, express will then handle the files inside as the static files to be accessed.
+
+```javascript
+app.use(express.static(assetPath));
+```
+
+Go ahead and define any styling you want inside the stylesheet
+
+```css
+body {
+    color: red;
+}
+```
+
+and link the stylesheet as usual in the head of the index.ejs view
+
+We are now serving the stylesheet through our EJS view using express!
+
+This is the cycle of implementing EJS views through express, other things to include leveraging EJS views could be reusable features like a footer, a full header component and more.
+
+I included the footer just for reference, have a look!
