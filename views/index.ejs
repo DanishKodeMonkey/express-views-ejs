@@ -3,6 +3,11 @@
         <title>Homepage</title>
     </head>
     <body>
-        <%- include('navbar', {links: links})
+        <%- include('components/navbar', {links: links}) %>
+
+        <ul>
+            <% users.forEach((user) => { %> <%- include('components/users/user',
+            {user: user}) %> <%})%>
+        </ul>
     </body>
 </html>
