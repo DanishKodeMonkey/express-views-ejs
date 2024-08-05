@@ -100,7 +100,7 @@ Lets make a component `navbar.ejs`, and place it into its own folder `components
 
     We iterate through a for loop using a passed links array, creating a list element with a link containing the url and text of that link.
 
-and then `include` it in our ejs view
+and then `include` it in our ejs view, remember that navbar is in a nested director within views, so include the components part of the navigation to the navbar view
 
 ```javascript
 <html>
@@ -108,7 +108,7 @@ and then `include` it in our ejs view
         <title>Homepage</title>
     </head>
     <body>
-        <%- include('navbar', {links: links})
+        <%- include('components/navbar', {links: links})
     </body>
 </html>
 
@@ -131,3 +131,66 @@ app.get('/', (req, res) => {
     res.render('index', { links: links });
 });
 ```
+
+Now, when rendering the index.ejs, we pass along the links array, this in turn is passed further to the included navbar, where the links are used to dynamically create nav links as list elements.
+
+This is the basis of creating dynamic elements between pages and components
+
+We define our links array in app.js
+pass it to index on render
+which passes it along to navbar as its included
+which in turn renders a li element for each link using a for loop.
+
+Let us try and do this again, but in a bit different way.
+
+On the index page, we also wish to include a users array.
+So below the links array, we will create another array with our users
+
+```javascript
+const users = ['Rick', 'Morty', 'Roy'];
+```
+
+This time, we will create a new view called user.ejs.
+This view will hold only a single line in a list element
+
+```javascript
+<li><%= user %></li>
+```
+
+In our index.ejs we create a new unorganised list `<ul>` element
+inside the `ul` element, we use a `forEach` loop to iterate through the `users` array.
+For each iteration, we pass a value of the `users` array, named `user` into a new included view component `user`, each being a unique instance of `user.ejs`
+
+```javascript
+<ul>
+  <% users.forEach((user) => { %>
+    <%- include('components/users/user', {user: user}); %>
+  <% }); %>
+</ul>
+```
+
+Now, Rick, Morty, and Roy should appear when rendering the index.ejs view.
+
+The main difference is how many ejs view components we render.
+
+In our links example, we use a single instance of the `links` view to render all our components
+
+A single instance of Navbar will display all links from the links array
+
+```
+[Navbar: <ul><li>Home</li>, <li>About</li><ul>]
+```
+
+Meanwhile, one instance of user.ejs will be used for each element of the users array and placed inside an unorganised list `ul`
+
+```
+<ul>
+[user: <li>Rick</li>]
+[user: <li>Morty</li>]
+[user: <li>Roy</li>]
+</ul>
+```
+
+Now, when we enter the index view of our application:
+
+![index view with navbar and users list](./public/Screenshot_20240805_143104.png)
