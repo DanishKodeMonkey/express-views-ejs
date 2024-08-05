@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('node:path');
-const assetPath = path.join(__, 'public');
+const assetPath = path.join(__dirname, 'public');
 
 const app = express();
 
@@ -18,8 +18,11 @@ const links = [
         text: 'About',
     },
 ];
+
+const users = ['Rick', 'Morty', 'Roy'];
+
 app.get('/', (req, res) => {
-    res.render('index', { links: links });
+    res.render('index', { links: links, users: users });
 });
 
 app.get('/about', (req, res) => {
