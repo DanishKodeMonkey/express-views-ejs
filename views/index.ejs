@@ -1,6 +1,10 @@
 <html>
     <head>
         <title>Homepage</title>
+        <link
+            rel="stylesheet"
+            href="./styles.css"
+        />
     </head>
     <body>
         <%- include('components/navbar', {links: links}) %>
@@ -9,5 +13,7 @@
             <% users.forEach((user) => { %> <%- include('components/users/user',
             {user: user}) %> <%})%>
         </ul>
+
+        <%- include('components/footer') %>
     </body>
 </html>
